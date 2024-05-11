@@ -1,30 +1,32 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 23:31:32 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/08 18:51:11 by yimizare         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-
 #include <unistd.h>
-#include <math.h>
-#include <fcntl.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+//#include <mlx.h>
+# include <X11/keysym.h>
 
-typedef	struct s_complex
+typedef struct s_complex
 {
-	double	real;
+	double	z;
 	double	i;
-}		t_complex;
 
+} t_complex;
+
+
+int		ft_isdigit(int c);
+int		ft_strlen(const char *s);
+int		ft_strcmp(const char *s1, const char *s2);
+void	set_choice(int argc, char *argv[]);
+long	ft_atoi(const char *string);
+double	ft_atod(const char *string);
+int		check_coordinate(char *num);
+void	mandelbrot_check(char *argv[]);
+void	julia_check(char *argv[]);
+void	ft_error(void);
+void	julia(char *argv[]);
+void	mandelbrot(char *argv[]);
 
 #endif
