@@ -4,6 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 FILES = 	mandatory/main.c mandatory/events.c	mandatory/julia.c \
 		mandatory/mandelbrot.c	mandatory/parsing.c	mandatory/tools.c \
+		mandatory/parsing_tools.c
 
 O_FILES = $(FILES:.c=.o)
 

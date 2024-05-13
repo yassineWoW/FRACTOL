@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:29:12 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/10 18:11:23 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:08:15 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ double	ft_atod(const char *string)
 	i = 0;
 	number = 0.0;
 	decimal_part = (double)ft_atoi(string);
-	while(string[i] != '.' && string[i] != '\0')
+	while (string[i] != '.' && string[i] != '\0')
 		i++;
 	if (string[i] == '.')
 	{
 		i++;
-		while (ft_isdigit(string[i]) && string[i]!= '\0')
+		while (ft_isdigit(string[i]) && string[i] != '\0')
 		{
 			number += (double)(string[i] - 48) / integer_part;
 			i++;

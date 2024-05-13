@@ -6,21 +6,11 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:19:14 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/11 20:40:58 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:10:18 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
-
-void	ft_error(void)
-{
-	write(1, "wrong inputs try this :\n", 24);
-	write(1, "		./fractol <the fractal's number>\n", 35);
-	write(1, "(1): for Mandelbrot\n", 20);
-	write(1, "(2): for Julia followed by the real and imaginary numbers\n", 58);
-
-	exit(1);
-}
 
 void	julia_check(char *argv[])
 {
@@ -56,42 +46,49 @@ void	mandelbrot_check(char *argv[])
 		ft_error();
 }
 
-void	set_choice(int argc, char *argv[])
-{
-	if (argc == 2)
-		mandelbrot_check(argv);
-	else if (argc == 4)
-		julia_check(argv);
-	else
-		ft_error();
-}
-
-int		check_coordinate(char *num)
+void	check_duplicate(char *num)
 {
 	int	i;
-	int	flag;
-
-	flag = 0;
+	int	flag[256];
+	
 	i = 0;
-	if (num[i] == '.')
-		return (1);
+	while (i < 256)
+		flag[i++] = 0;
+	i = 0;
 	while (num[i] != '\0')
 	{
-		if (num[i] == '.' || num[i] == '+' || num[i] == '-')
+		if ((num[i] == '.' || num[i] == '+' || num[i] == '-'))
 		{
-			flag = 1;
+			flag[(int)num[i]] = 1;
 			i++;
 		}
-		if ((num[i] == '.' || num[i] == '+' || num[i] == '-') && flag == 1)
-			return (1);
+		if (flag[(int)num[i]] == 1)
+			ft_error();
 		i++;
 	}
-	i =0;
+}
+
+int	check_coordinate(char *num)
+{
+	int	i;
+
+	i = 0;
+	while (num[i] != '\0' && (num[i] == ' ' || num[i] == '	'))
+		i++;
+	if (((ft_isdigit(num[i]) == 0) || (num[i] == '.')) \
+	&& ((num[i] != '+') && (num[i] != '-')))
+	{
+		printf("wtf\n");
+		ft_error();
+	}
+	i = 0;
 	while (num[i] != '\0')
 	{
-		if ((num[i] != '.' && num[i] != '+' && num[i] != '-') && !ft_isdigit(num[i]))
-			return (1);
+		if ((num[i] == '.' || num[i] == '-' || num[i] == '+') \
+			&& !ft_isdigit(num[i + 1]))
+			ft_error();
 		i++;
 	}
+	check_duplicate(num);
 	return (0);
 }

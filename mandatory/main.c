@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main1.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:19:30 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/10 19:58:53 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:48:52 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	if (argc < 2 || argc > 4)
 		ft_error();
 	set_choice(argc, argv);
-	return 0;
+	return (0);
 }

@@ -28,5 +28,7 @@ void	julia_check(char *argv[]);
 void	ft_error(void);
 void	julia(char *argv[]);
 void	mandelbrot(char *argv[]);
+void	check_duplicate(char *num);
+
 
 #endif
