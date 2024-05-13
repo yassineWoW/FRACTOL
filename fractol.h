@@ -5,13 +5,20 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-//#include <mlx.h>
+#include "mlx.h"
 # include <X11/keysym.h>
 
 typedef struct s_complex
 {
 	double	z;
 	double	i;
+	// fractal id
+	// mlx stuff;
+	void	*mlx_connextion; // to initialize the mlx connnection;
+	void	*mlx_window; // pointer for the window
+	
+	// image;
+	// hooks value;
 
 } t_complex;
 
