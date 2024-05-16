@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:19:14 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/13 15:10:18 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:01:12 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	mandelbrot_check(char *argv[])
 	if (ft_strlen(argv[1]) == 1)
 	{
 		if (argv[1][0] == 'M' || argv[1][0] == '1')
-			mandelbrot(argv);
+			mandelbrot();
 		else
 			ft_error();
 	}
 	else if (ft_strcmp(argv[1], "mandelbrot") == 0)
-		mandelbrot(argv);
+		mandelbrot();
 	else
 		ft_error();
 }

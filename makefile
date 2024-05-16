@@ -4,16 +4,18 @@ CFLAGS = -Wall -Wextra -Werror
 
 FILES = 	mandatory/main.c mandatory/events.c	mandatory/julia.c \
 		mandatory/mandelbrot.c	mandatory/parsing.c	mandatory/tools.c \
-		mandatory/parsing_tools.c
+		mandatory/parsing_tools.c mandatory/math_tools.c 
 
 O_FILES = $(FILES:.c=.o)
+
+MLX_COMP = -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm
 
 NAME = fractol
 
 all : $(NAME)
 
 $(NAME) : $(O_FILES)
-			$(CC) $(CFLAGS) $(O_FILES) -o $@
+			$(CC) $(O_FILES) $(CFLAGS) -o $@ $(MLX_COMP)
 
 clean :
 		rm -rf $(O_FILES)
