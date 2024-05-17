@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:02:11 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/15 18:49:05 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:50:05 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_complex	square_complex(t_complex z)
 {
 	t_complex	result;
 
-	result.x = (z.x * z.x) - (z.y *z.y);
-	result.y = 2 * z.x + z.y;
+	result.x = (z.x * z.x) - (z.y * z.y);
+	result.y = 2 * z.x * z.y;
 
 	return (result);
 }

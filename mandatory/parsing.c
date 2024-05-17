@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:19:14 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/16 19:01:12 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:02:33 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	check_coordinate(char *num)
 	if (((ft_isdigit(num[i]) == 0) || (num[i] == '.')) \
 	&& ((num[i] != '+') && (num[i] != '-')))
 	{
-		printf("wtf\n");
 		ft_error();
 	}
 	i = 0;
