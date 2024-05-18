@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:02:11 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/17 20:50:05 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/18 21:23:58 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 // (0-799) -> (-2 - 2)
 
-int		scale_coordinates(double unscaled_num, double new_min, double new_max ,double old_min, double old_max)
+double		scale_coordinates(double unscaled_num, double new_min, double new_max ,double old_min, double old_max)
 {
-	return (new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min; 
+	return ((new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min); 
 }
 
 t_complex	sum_complex(t_complex z1, t_complex z2)

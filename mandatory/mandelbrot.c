@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:19:22 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/17 21:15:42 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/18 21:30:57 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	handle_pixels(int x, int y, t_fractal *fractal)
 	z.y = 0.0;
 	
 	// c is the pixels coordinates and x and y are scaled to fit the mandelbrot set (-2, 2)
-	c.x = scale_coordinates(x, -2, 2, 0, WIDTH);
-	c.y = scale_coordinates(y, 2, -2, 0, HEIGHT);
+	c.x = scale_coordinates(x, -2, +2, 0, WIDTH);
+	c.y = scale_coordinates(y, +2, -2, 0, HEIGHT);
 	
 	// now we will check if our numbers get to infinity if we iterate through them they should stay bounded if they truly are in the mandelbrot set
 	while (i < fractal->iterations) // how many time are we iterating to check if we still in bounds

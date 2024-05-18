@@ -79,7 +79,7 @@ void	ft_error(void);
 void	julia(char *argv[]);
 void	mandelbrot(void);
 void	check_duplicate(char *num);
-int		scale_coordinates(double unscaled_num, double new_min, double new_max ,double old_min, double old_max);
+double		scale_coordinates(double unscaled_num, double new_min, double new_max ,double old_min, double old_max);
 void	my_pixel_put(int x, int y, t_img *img, int color);
 void	data_init(t_fractal *fractal);
 t_complex	sum_complex(t_complex z1, t_complex z2);

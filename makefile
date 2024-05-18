@@ -23,6 +23,9 @@ clean :
 fclean : clean
 			rm -f $(NAME)
 
+git	:	
+		git add .; git commit -m "FRACTOL"; git push 
+
 re : fclean all
 
 .PHONY : all clean fclean re
