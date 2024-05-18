@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "minilibx-linux/mlx.h"
 # include <X11/keysym.h>
+#include <X11/x>
 
 typedef struct s_img
 {

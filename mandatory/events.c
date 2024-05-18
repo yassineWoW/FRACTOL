@@ -6,8 +6,14 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:19:36 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/13 14:51:06 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/18 21:43:25 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
+
+
+int		key_handler(int keysym, t_factal *fractal)
+{
+	
+}

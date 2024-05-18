@@ -6,11 +6,33 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:19:22 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/18 21:30:57 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/18 21:40:40 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
+
+
+void	events_init(t_fractal *fractal)
+{
+	//TODO
+	
+	mlx_hook(fractal->mlx_window, 
+			KeyPress, 
+			KeyPressMask, 
+			key_handler, 
+			fractal);
+	mlx_hook(fractal->mlx_window, 
+			ButtonPress, 
+			ButtonPressMask, 
+			mouse_handler, 
+			fractal);
+	mlx_hook(fractal->mlx_window, 
+			DestroyNotify, 
+			StructureNotifyMask, 
+			close_handler, 
+			fractal);
+}
 
 void	my_mlx_error(void)
 {
@@ -111,7 +133,7 @@ void	fractal_initialzer(t_fractal *fractal)
 										&fractal->img.line_len, 
 										&fractal->img.endian);
 
-	//events_init
+	events_init(fractal);
 	data_init(fractal);
 }
 
