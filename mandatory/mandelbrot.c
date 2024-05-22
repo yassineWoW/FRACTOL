@@ -6,88 +6,55 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:19:22 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/18 21:40:40 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:59:02 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-
-void	events_init(t_fractal *fractal)
-{
-	//TODO
-	
-	mlx_hook(fractal->mlx_window, 
-			KeyPress, 
-			KeyPressMask, 
-			key_handler, 
-			fractal);
-	mlx_hook(fractal->mlx_window, 
-			ButtonPress, 
-			ButtonPressMask, 
-			mouse_handler, 
-			fractal);
-	mlx_hook(fractal->mlx_window, 
-			DestroyNotify, 
-			StructureNotifyMask, 
-			close_handler, 
-			fractal);
-}
-
 void	my_mlx_error(void)
 {
-	write(2, "problem with memory allocation\n", 31);
+	write(2, "problem with mlx memory allocation\n", 35);
 	exit(1);
 }
 
-void	my_pixel_put(int x, int y, t_img *img, int color)
-{
-	int offset;
-	
-	offset = (y * img->line_len) + (x * (img->bpp / 8));
-	*(unsigned int *)(img->pixel_ptr + offset) = color;
-}
-
-void	data_init(t_fractal *fractal)
-{
-	fractal->out_of_bounds = 4; // 2 square 2 c^2 = a^2 + b^2;
-	fractal->iterations = 42;
-}
-
-void	handle_pixels(int x, int y, t_fractal *fractal)
+void	handle_mandel_pixels(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
 	t_complex	c;
 	int			i;
-	int			color;
+	//int			color;
 
 	// z is actualy just the iteration amount
-	color = 0;
+	//color = 0;
 	i = 0;
-	z.x = 0.0;
-	z.y = 0.0;
+	z.x = 0;
+    z.y = 0;
 	
 	// c is the pixels coordinates and x and y are scaled to fit the mandelbrot set (-2, 2)
-	c.x = scale_coordinates(x, -2, +2, 0, WIDTH);
-	c.y = scale_coordinates(y, +2, -2, 0, HEIGHT);
+	c.x = scale_coordinates((double)x, fractal->min_x, fractal->max_x, 0, WIDTH) * fractal->zoom + fractal->shift_x;
+	c.y = scale_coordinates((double)y, fractal->min_y, fractal->max_y, 0, HEIGHT) * fractal->zoom + fractal->shift_y;
 	
-	// now we will check if our numbers get to infinity if we iterate through them they should stay bounded if they truly are in the mandelbrot set
+	colors(fractal);// now we will check if our numbers get to infinity if we iterate through them they should stay bounded if they truly are in the mandelbrot set
 	while (i < fractal->iterations) // how many time are we iterating to check if we still in bounds
 	{
 		z = sum_complex(square_complex(z), c);
 		if ((z.x * z.x) + (z.y * z.y) > fractal->out_of_bounds) // if yes then we out of bounds and we not in mandelbrrot
 		{
-			color = scale_coordinates(i, BLACK, WHITE, 0, fractal->iterations);
-			my_pixel_put(x, y, &fractal->img, color); //TO DO!
+			//color = scale_coordinates(i, BLACK, WHITE, 0, fractal->iterations);
+			my_pixel_put(x, y, &fractal->img, coloring(0, fractal->red, fractal->green, fractal->blue)); //TO DO!
 			return ;
 		}
+		fractal->red += 10;
+		fractal->green += 10;
+		fractal->blue += 10;
 		i++;
 	}
 	// now we are in mandelbrot
-	my_pixel_put(x, y, &fractal->img, CYAN);
+	my_pixel_put(x, y, &fractal->img, BLACK);
 }
 
-void	fractal_renderer(t_fractal *fractal)
+void	fractal_mandel_renderer(t_fractal *fractal)
 {
 	int	x;
 	int	y;
@@ -98,51 +65,19 @@ void	fractal_renderer(t_fractal *fractal)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			handle_pixels(x, y, fractal);
+			handle_mandel_pixels(x, y, fractal);
 		}
 	}
 	mlx_put_image_to_window(fractal->mlx_connection,
 							fractal->mlx_window, 
 							fractal->img.img_ptr, 0, 0);
 }
-void	fractal_initialzer(t_fractal *fractal)
-{
-	// mlx stuff;
-
-	fractal->mlx_connection = mlx_init();
-	if (fractal->mlx_connection == NULL)
-		my_mlx_error();
-	fractal->mlx_window = mlx_new_window(fractal->mlx_connection, WIDTH, HEIGHT, "Mandelbrot");
-	
-	if (fractal->mlx_window == NULL)
-	{
-		mlx_destroy_display(fractal->mlx_connection);
-		free(fractal->mlx_connection);
-		my_mlx_error();
-	}
-	fractal->img.img_ptr = mlx_new_image(fractal->mlx_connection, WIDTH, HEIGHT);
-	if (fractal->img.img_ptr == NULL)
-	{
-		mlx_destroy_window(fractal->mlx_connection, fractal->mlx_window);
-		mlx_destroy_display(fractal->mlx_connection);
-		free(fractal->mlx_connection);
-		my_mlx_error();
-	}
-	fractal->img.pixel_ptr = mlx_get_data_addr(fractal->img.img_ptr,
-										&fractal->img.bpp, 
-										&fractal->img.line_len, 
-										&fractal->img.endian);
-
-	events_init(fractal);
-	data_init(fractal);
-}
 
 void	mandelbrot(void)
 {
 	t_fractal	fractal;
 	
-	fractal_initialzer(&fractal);
-	fractal_renderer(&fractal);
+	fractal_mandel_initialzer(&fractal);
+	fractal_mandel_renderer(&fractal);
 	mlx_loop(fractal.mlx_connection); //for events (mouse click, keystrokes)
-	
 }

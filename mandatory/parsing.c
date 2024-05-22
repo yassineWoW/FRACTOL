@@ -6,27 +6,23 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:19:14 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/17 19:02:33 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:46:29 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-void	julia_check(char *argv[])
+void	julia_check(char *argv[], t_fractal fractal)
 {
 	if (ft_strlen(argv[1]) == 1)
 	{
 		if (argv[1][0] == 'J' || argv[1][0] == '2')
-		{
-			julia(argv);
-		}
+			julia_init(argv, fractal);
 		else
 			ft_error();
 	}
 	else if (ft_strcmp(argv[1], "Julia") == 0)
-	{
-		julia(argv);
-	}
+		julia_init(argv, fractal);
 	else
 		ft_error();
 }

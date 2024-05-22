@@ -7,12 +7,12 @@
 #include <stdlib.h>
 #include "minilibx-linux/mlx.h"
 # include <X11/keysym.h>
-#include <X11/x>
+# include <X11/X.h>
 
 typedef struct s_img
 {
 	void	*img_ptr; // pointer to the image struct
-	char	*pixel_ptr; //points to the pixels
+	void	*pixel_ptr; //points to the pixels
 	int		bpp; //bytes per pixel;
 	int		endian; // ??
 	int		line_len;
@@ -32,7 +32,27 @@ typedef struct s_fractal
 	// calculations
 	double	out_of_bounds;
 	int		iterations;
+	double	shift_x;
+	double	shift_y;
+	double	zoom;
+	double	julia_x;
+	double	julia_y;
+	double	max_x;
+	double	min_x;
+	double	max_y;
+	double	min_y;
+	// RGB
+	unsigned int red;
+	unsigned int green;
+	unsigned int blue;
+	unsigned int	r_value;
+	unsigned int	b_value;
+	unsigned int	g_value;
 
+	// mouse coordinates
+	double	x;
+	double	y;
+	
 } t_fractal;
 
 
@@ -45,7 +65,8 @@ typedef struct	s_complex
 }	t_complex;
 
 #define WIDTH  800			
-#define HEIGHT  800			
+#define HEIGHT  800
+#define ZOOM_FACTOR 1.2
 							
 // primary colors					
 #define BLACK	0x000000	// RGB(0, 0, 0)
@@ -66,6 +87,7 @@ typedef struct	s_complex
 #define ELECTRIC_BLUE 0x0066FF
 
 
+//parsing
 
 int		ft_isdigit(int c);
 int		ft_strlen(const char *s);
@@ -75,16 +97,41 @@ long	ft_atoi(const char *string);
 double	ft_atod(const char *string);
 int		check_coordinate(char *num);
 void	mandelbrot_check(char *argv[]);
-void	julia_check(char *argv[]);
+void	julia_check(char *argv[], t_fractal fractal);
 void	ft_error(void);
-void	julia(char *argv[]);
+
+void	colors(t_fractal *fractal);
+void	julia_init(char *argv[], t_fractal fractal);
+void	julia(char *argv[], t_fractal *fractal);
 void	mandelbrot(void);
 void	check_duplicate(char *num);
-double		scale_coordinates(double unscaled_num, double new_min, double new_max ,double old_min, double old_max);
-void	my_pixel_put(int x, int y, t_img *img, int color);
-void	data_init(t_fractal *fractal);
+double	scale_coordinates(double unscaled_num, double new_min, double new_max ,double old_min, double old_max);
+void	my_pixel_put(int x, int y, t_img *img, unsigned int color);
+// init
+void	julia_data_init(t_fractal *fractal);
+void	julia_events_init(t_fractal *fractal);
+void	mandel_data_init(t_fractal *fractal);
+void	mandel_events_init(t_fractal *fractal);
+
+// redering
+void	handle_mandel_pixels(int x, int y, t_fractal *fractal);
+void	handle_julia_pixels(int x, int y, t_fractal *fractal);
+void	fractal_julia_initialzer(t_fractal *fractal);
+void	fractal_mandel_initialzer(t_fractal *fractal);
+void	fractal_mandel_renderer(t_fractal *fractal);
+void	fractal_julia_renderer(t_fractal *fractal);
+unsigned int coloring(unsigned int a, unsigned int r, unsigned int g, unsigned int b);
+
+// key_hadling
+void	julia_events_init(t_fractal *fractal);
+int		key_mandel_handler(int keysym, t_fractal *fractal);
+int		key_julia_handler(int keysym, t_fractal *fractal);
+int		close_julia_handler(t_fractal *fractal);
+int		close_mandel_handler(t_fractal *fractal);
+int		mouse_julia_handler(int button, int x, int y, t_fractal *fractal);
+int		mouse_mandel_handler(int button, int x, int y, t_fractal *fractal);
+void	my_mlx_error(void);
 t_complex	sum_complex(t_complex z1, t_complex z2);
 t_complex	square_complex(t_complex z);
-
 
 #endif

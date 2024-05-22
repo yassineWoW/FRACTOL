@@ -2,9 +2,10 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-FILES = 	mandatory/main.c mandatory/events.c	mandatory/julia.c \
+FILES = 	mandatory/main.c mandatory/events_mandelbrot.c mandatory/events_julia.c	mandatory/julia.c \
 		mandatory/mandelbrot.c	mandatory/parsing.c	mandatory/tools.c \
-		mandatory/parsing_tools.c mandatory/math_tools.c 
+		mandatory/parsing_tools.c mandatory/math_tools.c mandatory/mandel_initialization.c \
+		mandatory/julia_initialization.c
 
 O_FILES = $(FILES:.c=.o)
 

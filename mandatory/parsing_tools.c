@@ -6,7 +6,7 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:01:29 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/13 15:02:50 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:52:59 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void	ft_error(void)
 
 void	set_choice(int argc, char *argv[])
 {
+	t_fractal fractal;
+
 	if (argc == 2)
 		mandelbrot_check(argv);
 	else if (argc == 4)
-		julia_check(argv);
+		julia_check(argv, fractal);
 	else
 		ft_error();
 }
