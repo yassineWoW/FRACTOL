@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia_initialization.c                             :+:      :+:    :+:   */
+/*   julia_initialization_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 14:20:16 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/24 21:48:00 by yimizare         ###   ########.fr       */
+/*   Created: 2024/05/23 18:58:42 by yimizare          #+#    #+#             */
+/*   Updated: 2024/05/25 15:47:07 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "fractol_bonus.h"
 
 void	julia_data_init(t_fractal *fra)
 {
@@ -31,7 +31,7 @@ void	julia_data_init(t_fractal *fra)
 	fra->b_value = 0;
 }
 
-void	fractal_julia_initialzer(t_fractal	*fra)
+void	fractal_julia_initialzer(t_fractal *fra)
 {
 	fra->mlx_connection = mlx_init();
 	if (fra->mlx_connection == NULL)

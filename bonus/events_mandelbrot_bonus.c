@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events_mandelbrot.c                                :+:      :+:    :+:   */
+/*   events_mandelbrot_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 15:19:36 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/25 15:21:18 by yimizare         ###   ########.fr       */
+/*   Created: 2024/05/23 16:08:50 by yimizare          #+#    #+#             */
+/*   Updated: 2024/05/25 16:03:06 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "fractol_bonus.h"
 
 int	close_mandel_handler(t_fractal *fra)
 {
@@ -21,7 +21,24 @@ int	close_mandel_handler(t_fractal *fra)
 	exit(EXIT_SUCCESS);
 }
 
-int	key_mandel_handler(int keysym, t_fractal *fra)
+int	psychedelics_mandel(int keysym, t_fractal *fra)
+{
+	if (keysym == XK_r)
+		fra->r_value += 15;
+	else if (keysym == XK_R)
+		fra->r_value -= 15;
+	else if (keysym == XK_b)
+		fra->b_value += 15;
+	else if (keysym == XK_B)
+		fra->b_value -= 15;
+	else if (keysym == XK_g)
+		fra->g_value += 15;
+	else if (keysym == XK_G)
+		fra->g_value -= 15;
+	return (0);
+}
+
+int	key_mandel_bonus_handler(int keysym, t_fractal *fra)
 {
 	if (keysym == XK_Escape)
 		close_mandel_handler(fra);
@@ -37,6 +54,8 @@ int	key_mandel_handler(int keysym, t_fractal *fra)
 		fra->iterations += 10;
 	else if (keysym == XK_KP_Subtract)
 		fra->iterations -= 10;
+	else
+		psychedelics_mandel(keysym, fra);
 	fractal_mandel_renderer(fra);
 	return (0);
 }
@@ -70,7 +89,7 @@ void	mandel_events_init(t_fractal *fra)
 	mlx_hook(fra->mlx_window,
 		KeyPress,
 		KeyPressMask,
-		&key_mandel_handler,
+		&key_mandel_bonus_handler,
 		fra);
 	mlx_hook(fra->mlx_window,
 		DestroyNotify,

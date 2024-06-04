@@ -6,58 +6,56 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:17:46 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/22 20:45:27 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/24 21:45:19 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-void	mandel_data_init(t_fractal *fractal)
+void	mandel_data_init(t_fractal *fra)
 {
-	fractal->out_of_bounds = 4.0; // 2 square 2 c^2 = a^2 + b^2;
-	fractal->iterations = 42;
-	fractal->shift_x = 0.0;
-	fractal->shift_y = 0.0;
-	fractal->min_x = -2.0;
-    fractal->max_x = 2.0;
-    fractal->min_y = -2.0;
-    fractal->max_y = 2.0;
-	fractal->zoom = 1.0;
-	fractal->red = 0;
-	fractal->green = 0;
-	fractal->blue = 0;
-	fractal->r_value = 0;
-	fractal->g_value = 0;
-	fractal->b_value = 0;
+	fra->out_of_bounds = 4.0;
+	fra->iterations = 42;
+	fra->s_x = 0.0;
+	fra->s_y = 0.0;
+	fra->mi_x = -2.0;
+	fra->ma_x = 2.0;
+	fra->mi_y = -2.0;
+	fra->ma_y = 2.0;
+	fra->zoom = 1.0;
+	fra->r = 0;
+	fra->g = 0;
+	fra->b = 0;
+	fra->r_value = 0;
+	fra->g_value = 0;
+	fra->b_value = 0;
 }
 
-
-
-void	fractal_mandel_initialzer(t_fractal *fractal)
+void	fractal_mandel_initialzer(t_fractal *fra)
 {
-	fractal->mlx_connection = mlx_init();
-
-	if (fractal->mlx_connection == NULL)
+	fra->mlx_connection = mlx_init();
+	if (fra->mlx_connection == NULL)
 		my_mlx_error();
-	fractal->mlx_window = mlx_new_window(fractal->mlx_connection, WIDTH, HEIGHT, "Mandelbrot");
-	if (fractal->mlx_window == NULL)
+	fra->mlx_window = mlx_new_window(fra->mlx_connection,
+			WIDTH, HEIGHT, "Mandelbrot");
+	if (fra->mlx_window == NULL)
 	{
-		mlx_destroy_display(fractal->mlx_connection);
-		free(fractal->mlx_connection);
+		mlx_destroy_display(fra->mlx_connection);
+		free(fra->mlx_connection);
 		my_mlx_error();
 	}
-	fractal->img.img_ptr = mlx_new_image(fractal->mlx_connection, WIDTH, HEIGHT);
-	if (fractal->img.img_ptr == NULL)
+	fra->img.img_ptr = mlx_new_image(fra->mlx_connection, WIDTH, HEIGHT);
+	if (fra->img.img_ptr == NULL)
 	{
-		mlx_destroy_window(fractal->mlx_connection, fractal->mlx_window);
-		mlx_destroy_display(fractal->mlx_connection);
-		free(fractal->mlx_connection);
+		mlx_destroy_window(fra->mlx_connection, fra->mlx_window);
+		mlx_destroy_display(fra->mlx_connection);
+		free(fra->mlx_connection);
 		my_mlx_error();
 	}
-	fractal->img.pixel_ptr = mlx_get_data_addr(fractal->img.img_ptr,
-										&fractal->img.bpp, 
-										&fractal->img.line_len, 
-										&fractal->img.endian);
-	mandel_data_init(fractal);
-	mandel_events_init(fractal);
+	fra->img.pixel_ptr = mlx_get_data_addr(fra->img.img_ptr,
+			&fra->img.bpp,
+			&fra->img.line_len,
+			&fra->img.endian);
+	mandel_data_init(fra);
+	mandel_events_init(fra);
 }

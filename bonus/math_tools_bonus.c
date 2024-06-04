@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_tools.c                                       :+:      :+:    :+:   */
+/*   math_tools_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/15 18:02:11 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/25 15:32:40 by yimizare         ###   ########.fr       */
+/*   Created: 2024/05/24 16:01:46 by yimizare          #+#    #+#             */
+/*   Updated: 2024/05/25 15:51:07 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "fractol_bonus.h"
 
 t_complex	sum_complex(t_complex z1, t_complex z2)
 {
@@ -46,8 +46,8 @@ void	my_pixel_put(int x, int y, t_img *img, unsigned int color)
 	*(unsigned int *)(img->pixel_ptr + offset) = color;
 }
 
-unsigned int	coloring(unsigned int a, unsigned int r, unsigned int g,
-		unsigned int b)
+unsigned int	coloring(unsigned int a, unsigned int r,
+			unsigned int g, unsigned int b)
 {
 	return (a << 24 | r << 16 | g << 8 | b);
 }

@@ -6,45 +6,42 @@
 /*   By: yimizare <yimizare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:48:09 by yimizare          #+#    #+#             */
-/*   Updated: 2024/05/22 20:49:02 by yimizare         ###   ########.fr       */
+/*   Updated: 2024/05/25 15:48:19 by yimizare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-int	close_julia_handler(t_fractal *fractal)
+int	close_julia_handler(t_fractal *fra)
 {
-	mlx_destroy_image(fractal->mlx_connection, fractal->img.img_ptr);
-	mlx_destroy_window(fractal->mlx_connection, fractal->mlx_window);
-	mlx_destroy_display(fractal->mlx_connection);
-	free(fractal->mlx_connection);
+	mlx_destroy_image(fra->mlx_connection, fra->img.img_ptr);
+	mlx_destroy_window(fra->mlx_connection, fra->mlx_window);
+	mlx_destroy_display(fra->mlx_connection);
+	free(fra->mlx_connection);
 	exit(EXIT_SUCCESS);
 }
 
-int		key_julia_handler(int keysym, t_fractal *fractal)
+int	key_julia_handler(int keysym, t_fractal *fra)
 {
 	if (keysym == XK_Escape)
-		close_julia_handler(fractal);
-	 if (keysym == XK_Left)
-		fractal->shift_x -= (0.5 * fractal->zoom);
+		close_julia_handler(fra);
+	else if (keysym == XK_Left)
+		fra->s_x -= (0.5 * fra->zoom);
 	else if (keysym == XK_Right)
-		fractal->shift_x += (0.5 * fractal->zoom);
+		fra->s_x += (0.5 * fra->zoom);
 	else if (keysym == XK_Up)
-		fractal->shift_y -= (0.5 * fractal->zoom);
+		fra->s_y -= (0.5 * fra->zoom);
 	else if (keysym == XK_Down)
-		fractal->shift_y += (0.5 * fractal->zoom);
+		fra->s_y += (0.5 * fra->zoom);
 	else if (keysym == XK_KP_Add)
-		fractal->iterations += 10;
+		fra->iterations += 10;
 	else if (keysym == XK_KP_Subtract)
-		fractal->iterations -= 10;
-	fractal_julia_renderer(fractal);
-	
-	return 0;
+		fra->iterations -= 10;
+	fractal_julia_renderer(fra);
+	return (0);
 }
 
-
-
-int	mouse_julia_handler(int button, int x, int y, t_fractal *fractal)
+int	mouse_julia_handler(int button, int x, int y, t_fractal *fra)
 {
 	double	mouse_x;
 	double	mouse_y;
@@ -53,36 +50,36 @@ int	mouse_julia_handler(int button, int x, int y, t_fractal *fractal)
 	mouse_y = (double)y / HEIGHT;
 	if (button == Button4)
 	{
-		fractal->zoom *= 0.9;
-		fractal->shift_x += (mouse_x - 0.5) * fractal->zoom;
-		fractal->shift_y += (mouse_y - 0.5) * fractal->zoom;
-		fractal_julia_renderer(fractal);
+		fra->zoom *= 0.9;
+		fra->s_x += (mouse_x - 0.5) * fra->zoom;
+		fra->s_y += (mouse_y - 0.5) * fra->zoom;
+		fractal_julia_renderer(fra);
 	}
 	else if (button == Button5)
 	{
-		fractal->zoom *= 1.1;
-		fractal->shift_x += (mouse_x - 0.5) * fractal->zoom;
-		fractal->shift_y += (mouse_y - 0.5) * fractal->zoom;
-		fractal_julia_renderer(fractal);
+		fra->zoom *= 1.1;
+		fra->s_x += (mouse_x - 0.5) * fra->zoom;
+		fra->s_y += (mouse_y - 0.5) * fra->zoom;
+		fractal_julia_renderer(fra);
 	}
 	return (0);
 }
 
-void	julia_events_init(t_fractal *fractal)
+void	julia_events_init(t_fractal *fra)
 {
-	mlx_hook(fractal->mlx_window, 
-			KeyPress, 
-			KeyPressMask, 
-			&key_julia_handler, 
-			fractal);
-	mlx_hook(fractal->mlx_window, 
-			DestroyNotify, 
-			StructureNotifyMask, 
-			&close_julia_handler, 
-			fractal);
-	mlx_hook(fractal->mlx_window,
-	 		ButtonPress,
-			ButtonPressMask,
-			mouse_julia_handler, 
-			fractal);
+	mlx_hook(fra->mlx_window,
+		KeyPress,
+		KeyPressMask,
+		&key_julia_handler,
+		fra);
+	mlx_hook(fra->mlx_window,
+		DestroyNotify,
+		StructureNotifyMask,
+		&close_julia_handler,
+		fra);
+	mlx_hook(fra->mlx_window,
+		ButtonPress,
+		ButtonPressMask,
+		mouse_julia_handler,
+		fra);
 }
